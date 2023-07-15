@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("api/v1/employees")
 @CrossOrigin
@@ -20,8 +22,13 @@ public class EmployeeController {
     public ResponseEntity<StandardResponse> saveEmployee(@RequestBody EmployeeDto employeeDto){
         EmployeeDto saveEmployee = employeeService.saveEmployee(employeeDto);
         return new ResponseEntity<>(new StandardResponse(201,"Saved..!",saveEmployee),
-                HttpStatus.CREATED
-                );
+                HttpStatus.CREATED );
+    }
 
+    @GetMapping
+    public ResponseEntity<StandardResponse> getAllEmployee(){
+        List<EmployeeDto> allEmployees = employeeService.getAllEmployees();
+        return new ResponseEntity<>(new StandardResponse(200,"Saved..!",allEmployees),
+                HttpStatus.OK );
     }
 }
