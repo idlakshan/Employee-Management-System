@@ -1,17 +1,16 @@
-![2](https://github.com/idlakshan/Employee-Management-System/assets/92315416/ee853575-d09d-4478-b94c-719c1a137073)# Employee-Management-System
-
+#Employee-Management-System
 ---
-## Content in this Repository.
+##Content in this Repository.
 
 * React Front-End
 * Spring Boot Back-End
 
 ---
 
-### Description.
+###Description.
 
 
-#### This project is simple employee management crud.
+####This project is simple employee management crud.
 * Employee List
 * Add Employee
 * Update Employee
