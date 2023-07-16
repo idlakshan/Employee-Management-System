@@ -1,6 +1,7 @@
 package com.ijse.backend.service.impl;
 
 import com.ijse.backend.dto.EmployeeDto;
+import com.ijse.backend.dto.EmployeeUpdateDto;
 import com.ijse.backend.entity.Employee;
 import com.ijse.backend.exception.ResourceNotFoundException;
 import com.ijse.backend.repo.EmployeeRepo;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
 
 @Service
 @Transactional
@@ -40,5 +42,32 @@ public class EmployeeServiceImpl implements EmployeeService {
             return employeeDtos;
         }
        throw new ResourceNotFoundException("Not Employees found");
+    }
+
+    @Override
+    public EmployeeDto getEmployeeById(long id) {
+        if(employeeRepo.existsById(id)){
+            Employee employee = employeeRepo.getReferenceById(id);
+            EmployeeDto employeeDto = modelMapper.map(employee, EmployeeDto.class);
+            return employeeDto;
+        }
+     throw new ResourceNotFoundException("Employee Not Found");
+    }
+
+    @Override
+    public EmployeeUpdateDto updateEmployee(EmployeeUpdateDto employeeUpdateDto, long id) {
+        if (employeeRepo.existsById(id)){
+            Employee employee = employeeRepo.getReferenceById(id);
+            modelMapper.map(employeeUpdateDto,employee);
+            employeeRepo.save(employee);
+
+            return employeeUpdateDto;
+        }
+        throw new ResourceNotFoundException("Employee Not Found");
+    }
+
+    @Override
+    public void deleteEmployee(long id) {
+         employeeRepo.deleteById(id);
     }
 }

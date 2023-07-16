@@ -1,6 +1,7 @@
 package com.ijse.backend.controller;
 
 import com.ijse.backend.dto.EmployeeDto;
+import com.ijse.backend.dto.EmployeeUpdateDto;
 import com.ijse.backend.service.EmployeeService;
 import com.ijse.backend.util.StandardResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,4 +32,27 @@ public class EmployeeController {
         return new ResponseEntity<>(new StandardResponse(200,"Saved..!",allEmployees),
                 HttpStatus.OK );
     }
+
+    @GetMapping("{id}")
+    public ResponseEntity<StandardResponse> getEmployeeById(@PathVariable long id){
+        EmployeeDto employeeDto=employeeService.getEmployeeById(id);
+        return new ResponseEntity<>(new StandardResponse(200,"Success..!",employeeDto),
+                HttpStatus.OK );
+
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity<StandardResponse> updateEmployee(@RequestBody EmployeeUpdateDto employeeUpdateDto, @PathVariable long id){
+        EmployeeUpdateDto updateEmployee = employeeService.updateEmployee(employeeUpdateDto, id);
+        return new ResponseEntity<>(new StandardResponse(201,"Updated..!",updateEmployee),
+                HttpStatus.CREATED );
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<StandardResponse> deleteEmployee(@PathVariable long id){
+        employeeService.deleteEmployee(id);
+        return new ResponseEntity<>(new StandardResponse(204,"Deleted..!",null),
+                HttpStatus.NO_CONTENT );
+    }
+
 }
